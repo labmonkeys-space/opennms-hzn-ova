@@ -27,6 +27,12 @@ APT::Periodic::AutocleanInterval "0";
 APT::Periodic::Unattended-Upgrade "0";
 EOF
 
+# Disable installing recommended and suggested packages
+cat <<EOF >/etc/apt/apt.conf.d/99norecommend;
+APT::Install-Recommends "0";
+APT::Install-Suggests "0";
+EOF
+
 # Clean and nuke the package from orbit
 rm -rf /var/log/unattended-upgrades;
 apt-get -y purge unattended-upgrades;
