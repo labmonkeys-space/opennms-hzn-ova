@@ -1,0 +1,47 @@
+---
+version: 2.1
+
+executors:
+  build-executor:
+    docker:
+      - image: quay.io/labmonkeys/vmbuilder:1.9.2.b60
+
+workflows:
+  ova-workflow:
+    jobs:
+      - build-ova
+      - publish-ova:
+          context:
+            - "Publishing"
+          requires:
+            - build-ova
+
+jobs:
+  build-ova:
+    executor: build-executor
+    steps:
+      - checkout
+      - run:
+          name: Build Open Virtual Appliance (OVA)
+          command: |
+            make ova
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project
+      - store_artifacts:
+          path: image
+
+  publish-ova:
+    executor: build-executor
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run:
+          name: Publish OVA to mirror
+          command: |
+            mkdir ~/.ssh
+            echo ${SSH_MIRROR_FINGERPRINT} | base64 -d >> ~/.ssh/known_hosts
+            echo ${SSH_MIRROR_KEY} | base64 -d > ssh.priv
+            chmod 400 ssh.priv
+            scp -i ssh.priv image/*ova mirror@mirror.informatik.hs-fulda.de:/blackhole/mirror/hs-fulda/opennms
