@@ -8,7 +8,6 @@ source "qemu" "base-ubuntu-cloud-amd64" {
   disk_size        = "30G"
   disk_interface   = "virtio-scsi"
   format           = "qcow2"
-  #qemuargs         = [["-cdrom", "init.iso"]]
   qemuargs         = [["-smbios", "type=1,serial=ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/"]]
   shutdown_command = "echo 'ubuntu' | sudo -S shutdown -P now"
   ssh_username     = "ubuntu"

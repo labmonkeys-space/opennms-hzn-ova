@@ -1,4 +1,4 @@
-.PHONY: deps image vmdk ova clean
+.PHONY: deps image vmdk checksum manifest ova clean
 
 .DEFAULT_GOAL := ova
 
@@ -20,7 +20,7 @@ vmdk: image
 checksum: vmdk
 	@echo "Create VMware file and checksum"
 	@cp template.ovf image/onms-hzn.ovf
-	@cd image && sha256sum --tag onms-hzn.ovf onms-hzn-1.vmdk > sha256.sum && \
+	@cd image && sha256sum --tag onms-hzn.ovf onms-hzn-1.vmdk > sha256.sum
 
 manifest: checksum
 	@echo "Create VMware compatible manifest with custom checksum file"

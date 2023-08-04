@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Envelope ovf:version="1.0" xml:lang="en-US" xmlns="http://schemas.dmtf.org/ovf/envelope/1" xmlns:ovf="http://schemas.dmtf.org/ovf/envelope/1" xmlns:rasd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData" xmlns:vmw="http://www.vmware.com/schema/ovf" xmlns:vssd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData">
+<?xml version='1.0' encoding='UTF-8'?>
+<Envelope xmlns="http://schemas.dmtf.org/ovf/envelope/1" xmlns:ovf="http://schemas.dmtf.org/ovf/envelope/1" xmlns:vmw="http://www.vmware.com/schema/ovf" xmlns:rasd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData" xmlns:vssd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData">
   <References>
-    <File ovf:href="onms-hzn-0.vmdk" ovf:id="file1" ovf:size="3343607808"/>
+    <File ovf:id="file1" ovf:href="onms-hzn-1.vmdk"/>
   </References>
   <DiskSection>
-    <Info>List of the virtual disks used in the package</Info>
-    <Disk ovf:capacity="30" ovf:capacityAllocationUnits="byte * 2^30" ovf:diskId="vmdisk1" ovf:fileRef="file1" ovf:format="http://www.vmware.com/interfaces/specifications/vmdk.html#streamOptimized"/>
+    <Info>List of the virtual disks</Info>
+    <Disk ovf:capacityAllocationUnits="byte" ovf:format="http://www.vmware.com/interfaces/specifications/vmdk.html#streamOptimized" ovf:diskId="vmdisk1" ovf:capacity="3343607808" ovf:fileRef="file1"/>
   </DiskSection>
   <NetworkSection>
     <Info>List of logical networks used in the package</Info>
@@ -15,12 +15,13 @@
   </NetworkSection>
   <VirtualSystem ovf:id="onms-hzn-vm">
     <Info>A virtual machine</Info>
-    <OperatingSystemSection ovf:id="94">
-      <Info>The kind of installed guest operating system</Info>
-      <Description>Ubuntu_64</Description>
+    <Name>onms-hzn-vm</Name>
+    <OperatingSystemSection ovf:id="94" vmw:osType="ubuntu64Guest">
+      <Info>The operating system installed</Info>
+      <Description>Ubuntu Linux (64-bit)</Description>
     </OperatingSystemSection>
     <VirtualHardwareSection>
-      <Info>Virtual hardware requirements for a virtual machine</Info>
+      <Info>Virtual hardware requirements</Info>
       <System>
         <vssd:ElementName>Virtual Hardware Family</vssd:ElementName>
         <vssd:InstanceID>0</vssd:InstanceID>
@@ -36,10 +37,9 @@
         <rasd:VirtualQuantity>4</rasd:VirtualQuantity>
       </Item>
       <Item>
-        <rasd:AllocationUnits>MegaBytes</rasd:AllocationUnits>
-        <rasd:Caption>8192 MB of memory</rasd:Caption>
+        <rasd:AllocationUnits>byte * 2^20</rasd:AllocationUnits>
         <rasd:Description>Memory Size</rasd:Description>
-        <rasd:ElementName>8192 MB of memory</rasd:ElementName>
+        <rasd:ElementName>8192MB of memory</rasd:ElementName>
         <rasd:InstanceID>2</rasd:InstanceID>
         <rasd:ResourceType>4</rasd:ResourceType>
         <rasd:VirtualQuantity>8192</rasd:VirtualQuantity>

@@ -1,5 +1,5 @@
 locals {
   iso_url_ubuntu_cloud_2204           = "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img"
-  iso_checksum_url_ubuntu_cloud_2204  = "sha256:0ebb968aabb05ca50794dcf48f695aa7be3381ae00bcac9b8571f3ef369967a9"
+  iso_checksum_url_ubuntu_cloud_2204  = "sha256:2081b51ccb47acb54012db3a55fe22d3add2507311f6a4b16c41fc45f03d4d33"
   http_directory                      = "./seed"
 }
