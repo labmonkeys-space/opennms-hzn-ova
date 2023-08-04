@@ -31,6 +31,9 @@ ova: manifest
 	@cd image && \
 	tar -cvf onms-hzn-vm.ova onms-hzn.ovf onms-hzn.mf onms-hzn-1.vmdk && \
 	sha256sum --tag -b onms-hzn-vm.ova > onms-hzn-vm.shasum
+	@echo "Cleanup QEMU image and VMDK file"
+	@rm image/packer-base-ubuntu-cloud-amd64
+	@rm image/onms-hzn-1.vmdk
 
 clean:
 	@echo "Delete image build artifacts"
