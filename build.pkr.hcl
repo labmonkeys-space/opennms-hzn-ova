@@ -11,7 +11,7 @@ build {
   source "source.qemu.base-ubuntu-cloud-amd64" {
     name                    = "onms-hzn"
     iso_url                 = local.iso_url_ubuntu_cloud_2204
-    iso_checksum            = local.iso_checksum_url_ubuntu_cloud_2204
+    iso_checksum            = "file:${local.iso_checksum_url_ubuntu_cloud_2204}"
     output_directory        = "image"
     accelerator             = "none"
     http_directory          = local.http_directory
