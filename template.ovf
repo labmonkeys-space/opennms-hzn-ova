@@ -1,21 +1,21 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <Envelope xmlns="http://schemas.dmtf.org/ovf/envelope/1" xmlns:ovf="http://schemas.dmtf.org/ovf/envelope/1" xmlns:vmw="http://www.vmware.com/schema/ovf" xmlns:rasd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData" xmlns:vssd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData">
   <References>
-    <File ovf:href="onms-hzn-0.vmdk" ovf:id="file1" ovf:size="3343607808"/>
+    <File ovf:id="file1" ovf:href="onms-hzn-1.vmdk"/>
   </References>
   <DiskSection>
     <Info>List of the virtual disks</Info>
-        <Disk ovf:capacity="30" ovf:capacityAllocationUnits="byte * 2^30" ovf:diskId="vmdisk1" ovf:fileRef="file1" ovf:format="http://www.vmware.com/interfaces/specifications/vmdk.html#streamOptimized"/>
+    <Disk ovf:capacityAllocationUnits="byte" ovf:format="http://www.vmware.com/interfaces/specifications/vmdk.html#streamOptimized" ovf:diskId="vmdisk1" ovf:capacity="107374182400" ovf:fileRef="file1"/>
   </DiskSection>
   <NetworkSection>
     <Info>List of logical networks used in the package</Info>
     <Network ovf:name="Network 1">
-      <Description>The &quot;Network 1&quot; network</Description>
+      <Description>The Network 1 network</Description>
     </Network>
   </NetworkSection>
-  <VirtualSystem ovf:id="onms-hzn-vm">
-    <Info>A virtual machine</Info>
-    <Name>onms-hzn-vm</Name>
+  <VirtualSystem ovf:id="opennms-horizon-vm">
+    <Info>A Virtual system</Info>
+    <Name>opennms-horizon-vm</Name>
     <OperatingSystemSection ovf:id="94" vmw:osType="ubuntu64Guest">
       <Info>The operating system installed</Info>
       <Description>Ubuntu Linux (64-bit)</Description>
@@ -25,50 +25,56 @@
       <System>
         <vssd:ElementName>Virtual Hardware Family</vssd:ElementName>
         <vssd:InstanceID>0</vssd:InstanceID>
-        <vssd:VirtualSystemIdentifier>onms-hzn-vm</vssd:VirtualSystemIdentifier>
         <vssd:VirtualSystemType>vmx-13</vssd:VirtualSystemType>
       </System>
       <Item>
-        <rasd:Caption>4 virtual CPU</rasd:Caption>
-        <rasd:Description>Number of virtual CPUs</rasd:Description>
-        <rasd:ElementName>4 virtual CPU</rasd:ElementName>
+        <rasd:AllocationUnits>hertz * 10^6</rasd:AllocationUnits>
+        <rasd:Description>Number of Virtual CPUs</rasd:Description>
+        <rasd:ElementName>4 virtual CPU(s)</rasd:ElementName>
         <rasd:InstanceID>1</rasd:InstanceID>
         <rasd:ResourceType>3</rasd:ResourceType>
         <rasd:VirtualQuantity>4</rasd:VirtualQuantity>
+        <vmw:CoresPerSocket ovf:required="false">1</vmw:CoresPerSocket>
       </Item>
       <Item>
         <rasd:AllocationUnits>byte * 2^20</rasd:AllocationUnits>
         <rasd:Description>Memory Size</rasd:Description>
-        <rasd:ElementName>8192MB of memory</rasd:ElementName>
+        <rasd:ElementName>16384MB of memory</rasd:ElementName>
         <rasd:InstanceID>2</rasd:InstanceID>
         <rasd:ResourceType>4</rasd:ResourceType>
-        <rasd:VirtualQuantity>8192</rasd:VirtualQuantity>
+        <rasd:VirtualQuantity>16384</rasd:VirtualQuantity>
+      </Item>
+      <Item>
+        <rasd:Address>0</rasd:Address>
+        <rasd:Description>SCSI Controller</rasd:Description>
+        <rasd:ElementName>SCSI Controller 1</rasd:ElementName>
+        <rasd:InstanceID>3</rasd:InstanceID>
+        <rasd:ResourceSubType>lsilogicsas</rasd:ResourceSubType>
+        <rasd:ResourceType>6</rasd:ResourceType>
       </Item>
       <Item>
         <rasd:Address>0</rasd:Address>
         <rasd:Description>SATA Controller</rasd:Description>
         <rasd:ElementName>SATA Controller 1</rasd:ElementName>
-        <rasd:InstanceID>3</rasd:InstanceID>
+        <rasd:InstanceID>4</rasd:InstanceID>
         <rasd:ResourceSubType>vmware.sata.ahci</rasd:ResourceSubType>
         <rasd:ResourceType>20</rasd:ResourceType>
-        <vmw:Config ovf:required="false" vmw:key="slotInfo.pciSlotNumber" vmw:value="34"/>
       </Item>
       <Item>
         <rasd:AddressOnParent>0</rasd:AddressOnParent>
-        <rasd:Caption>disk1</rasd:Caption>
-        <rasd:Description>Disk Image</rasd:Description>
-        <rasd:ElementName>disk1</rasd:ElementName>
-        <rasd:HostResource>/disk/vmdisk1</rasd:HostResource>
-        <rasd:InstanceID>4</rasd:InstanceID>
+        <rasd:ElementName>Hard Disk 1</rasd:ElementName>
+        <rasd:HostResource>ovf:/disk/vmdisk1</rasd:HostResource>
+        <rasd:InstanceID>5</rasd:InstanceID>
         <rasd:Parent>3</rasd:Parent>
         <rasd:ResourceType>17</rasd:ResourceType>
       </Item>
       <Item>
+        <rasd:AddressOnParent>0</rasd:AddressOnParent>
         <rasd:AutomaticAllocation>true</rasd:AutomaticAllocation>
         <rasd:Connection>Network 1</rasd:Connection>
-        <rasd:ElementName xmlns:rasd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData">Ethernet adapter on &quot;Network 1&quot;</rasd:ElementName>
-        <rasd:InstanceID xmlns:rasd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData">5</rasd:InstanceID>
-        <rasd:ResourceSubType>vmxnet3</rasd:ResourceSubType>
+        <rasd:ElementName>Network adapter 1</rasd:ElementName>
+        <rasd:InstanceID>7</rasd:InstanceID>
+        <rasd:ResourceSubType>VmxNet3</rasd:ResourceSubType>
         <rasd:ResourceType>10</rasd:ResourceType>
       </Item>
     </VirtualHardwareSection>
