@@ -21,6 +21,8 @@ jobs:
     executor: build-executor
     steps:
       - checkout
+      - run: git submodule sync
+      - run: git submodule update --init --recursive ansible
       - run:
           name: Build Open Virtual Appliance (OVA)
           command: |
