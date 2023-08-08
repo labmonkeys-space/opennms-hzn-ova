@@ -4,7 +4,7 @@ version: 2.1
 executors:
   build-executor:
     docker:
-      - image: quay.io/labmonkeys/vmbuilder:1.9.2.b60
+      - image: quay.io/labmonkeys/vmbuilder:1.9.2.b63
 
 workflows:
   ova-workflow:
