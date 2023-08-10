@@ -36,12 +36,12 @@ build {
     playbook_file = "./ansible/single-node-deployment.yml"
     extra_arguments = ["-e", "skip_startup=true" ]
     role_paths = [
-      "ansible/roles/opennms-pgsql",
-      "ansible/roles/opennms-common",
-      "ansible/roles/opennms-core",
-      "ansible/roles/opennms-icmp",
-      "ansible/roles/opennms-minion",
-      "ansible/roles/opennms-sentinel"
+      "ansible/roles/opennms_pgsql",
+      "ansible/roles/opennms_common",
+      "ansible/roles/opennms_core",
+      "ansible/roles/opennms_icmp",
+      "ansible/roles/opennms_minion",
+      "ansible/roles/opennms_sentinel"
     ]
   }
 }
