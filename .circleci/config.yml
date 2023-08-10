@@ -24,6 +24,8 @@ jobs:
       - run: git submodule sync
       - run: git submodule update --init --recursive ansible
       - run:
+          no_output_timeout: 20m
+          timeout: 20m
           name: Build Open Virtual Appliance (OVA)
           command: |
             make ova
