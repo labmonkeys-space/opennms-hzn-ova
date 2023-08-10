@@ -34,6 +34,7 @@ build {
 
   provisioner "ansible-local" {
     playbook_file = "./ansible/single-node-deployment.yml"
+    extra_arguments = ["-e", "skip_startup=true" ]
     role_paths = [
       "ansible/roles/opennms-pgsql",
       "ansible/roles/opennms-common",
