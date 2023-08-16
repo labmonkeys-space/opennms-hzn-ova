@@ -48,4 +48,4 @@ jobs:
             echo ${SSH_MIRROR_FINGERPRINT} | base64 -d >> ~/.ssh/known_hosts
             echo ${SSH_MIRROR_KEY} | base64 -d > ssh.priv
             chmod 400 ssh.priv
-            scp -i ssh.priv image/*ova mirror@mirror.informatik.hs-fulda.de:/blackhole/mirror/hs-fulda/opennms
+            scp -i ssh.priv image/*ova mirror@mirror.informatik.hs-fulda.de:/blackhole/mirror/hs-fulda/opennms/virtual-appliance

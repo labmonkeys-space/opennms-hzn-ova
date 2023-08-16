@@ -1,4 +1,4 @@
-source "qemu" "base-ubuntu-cloud-amd64" {
+source "qemu" "opennms-horizon-amd64" {
   headless         = true
   memory           = 2048
   cpus             = 2
