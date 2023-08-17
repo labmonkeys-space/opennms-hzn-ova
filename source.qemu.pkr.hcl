@@ -1,7 +1,7 @@
 source "qemu" "opennms-horizon-amd64" {
   headless         = true
-  memory           = 2048
-  cpus             = 2
+  memory           = 4096
+  cpus             = 4
   boot_wait        = "5s"
   disk_compression = true
   disk_image       = true
