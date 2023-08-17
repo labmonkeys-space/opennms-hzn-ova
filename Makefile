@@ -1,4 +1,4 @@
-.PHONY: deps image vmdk checksum manifest ova clean
+.PHONY: deps image checksum manifest ova clean
 
 .DEFAULT_GOAL := ova
 
@@ -13,11 +13,7 @@ image: deps
 	@packer validate .
 	@packer build .
 
-vmdk: image
-	@echo "Convert to VMware disk image"
-	@qemu-img convert image/packer-base-ubuntu-cloud-amd64 -O vmdk -o adapter_type=lsilogic,subformat=streamOptimized,compat6 image/onms-hzn-1.vmdk
-
-checksum: vmdk
+checksum: image
 	@echo "Create VMware file and checksum"
 	@cp template.ovf image/onms-hzn.ovf
 	@cd image && sha256sum --tag onms-hzn.ovf onms-hzn-1.vmdk > sha256.sum
@@ -31,9 +27,6 @@ ova: manifest
 	@cd image && \
 	tar -cvf onms-hzn-vm.ova onms-hzn.ovf onms-hzn.mf onms-hzn-1.vmdk && \
 	sha256sum --tag -b onms-hzn-vm.ova > onms-hzn-vm.shasum
-	@echo "Cleanup QEMU image and VMDK file"
-	@rm image/packer-base-ubuntu-cloud-amd64
-	@rm image/onms-hzn-1.vmdk
 
 clean:
 	@echo "Delete image build artifacts"
