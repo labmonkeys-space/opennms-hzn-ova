@@ -28,9 +28,7 @@ build {
       "ansible/roles/opennms_pgsql",
       "ansible/roles/opennms_common",
       "ansible/roles/opennms_core",
-      "ansible/roles/opennms_icmp",
-      "ansible/roles/opennms_minion",
-      "ansible/roles/opennms_sentinel"
+      "ansible/roles/opennms_icmp"
     ]
   }
 
