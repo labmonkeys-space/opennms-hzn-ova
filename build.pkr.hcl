@@ -25,8 +25,13 @@ build {
     playbook_file = "./ansible/hzn-core-db-deployment.yml"
     extra_arguments = ["-e", "skip_startup=true" ]
     role_paths = [
+      "ansible/roles/opennms_common",
+      "ansible/roles/opennms_core",
+      "ansible/roles/opennms_icmp",
+      "ansible/roles/opennms_kafka",
+      "ansible/roles/opennms_minion",
       "ansible/roles/opennms_pgsql",
-      "ansible/roles/opennms_core"
+      "ansible/roles/opennms_sentinel"
     ]
   }
 
