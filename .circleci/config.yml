@@ -27,11 +27,8 @@ workflows:
   ova-workflow:
     jobs:
       - build-core
-      - publish-ova:
-          context:
-            - "Publishing"
-          requires:
-            - build-ova
+      - build-minion
+      - build-sentinel
 
 jobs:
   build-core:
