@@ -22,7 +22,7 @@ build {
   }
 
   provisioner "ansible-local" {
-    playbook_file = "./ansible/hzn-core-db-deployment.yml"
+    playbook_file = "../ansible/hzn-core-db-deployment.yml"
     extra_arguments = ["-e", "skip_startup=true" ]
     role_paths = [
       "../ansible/roles/opennms_common",
