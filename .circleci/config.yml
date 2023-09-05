@@ -6,10 +6,27 @@ executors:
     docker:
       - image: quay.io/labmonkeys/vmbuilder:1.9.2.b63
 
+commands:
+  make-image:
+    description: "Build OVA image and publish from main branch"
+    parameters:
+      workdir:
+        default: "~/project"
+        type: string
+    steps:
+      - checkout
+      - run: git submodule sync
+      - run: git submodule update --init --recursive ansible
+      - run:
+          name: Build OVA image and publish from main branch
+          command: |
+            cd << parameters.workdir >> && pwd
+            make
+
 workflows:
   ova-workflow:
     jobs:
-      - build-ova
+      - build-core
       - publish-ova:
           context:
             - "Publishing"
@@ -17,18 +34,11 @@ workflows:
             - build-ova
 
 jobs:
-  build-ova:
+  build-core:
     executor: build-executor
     steps:
-      - checkout
-      - run: git submodule sync
-      - run: git submodule update --init --recursive ansible
-      - run:
-          no_output_timeout: 20m
-          timeout: 20m
-          name: Build Open Virtual Appliance (OVA)
-          command: |
-            make ova
+      - make-image:
+          workdir: "./core"
       - persist_to_workspace:
           root: ~/
           paths:
@@ -36,16 +46,26 @@ jobs:
       - store_artifacts:
           path: image
 
-  publish-ova:
+  build-minion:
     executor: build-executor
     steps:
-      - attach_workspace:
-          at: ~/
-      - run:
-          name: Publish OVA to mirror
-          command: |
-            mkdir ~/.ssh
-            echo ${SSH_MIRROR_FINGERPRINT} | base64 -d >> ~/.ssh/known_hosts
-            echo ${SSH_MIRROR_KEY} | base64 -d > ssh.priv
-            chmod 400 ssh.priv
-            scp -i ssh.priv image/*ova mirror@mirror.informatik.hs-fulda.de:/blackhole/mirror/hs-fulda/opennms/virtual-appliance
+      - make-image:
+          workdir: "./minion"
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project
+      - store_artifacts:
+          path: image
+
+  build-sentinel:
+    executor: build-executor
+    steps:
+      - make-image:
+          workdir: "./sentinel"
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project
+      - store_artifacts:
+          path: image

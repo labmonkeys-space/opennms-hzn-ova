@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <Envelope xmlns="http://schemas.dmtf.org/ovf/envelope/1" xmlns:ovf="http://schemas.dmtf.org/ovf/envelope/1" xmlns:vmw="http://www.vmware.com/schema/ovf" xmlns:rasd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData" xmlns:vssd="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_VirtualSystemSettingData">
   <References>
-    <File ovf:id="file1" ovf:href="onms-hzn-1.vmdk"/>
+    <File ovf:id="file1" ovf:href="onms-hzn-sentinel-1.vmdk"/>
   </References>
   <DiskSection>
     <Info>List of the virtual disks</Info>
@@ -13,9 +13,9 @@
       <Description>The Network 1 network</Description>
     </Network>
   </NetworkSection>
-  <VirtualSystem ovf:id="opennms-horizon-vm">
+  <VirtualSystem ovf:id="opennms-horizon-sentinel-vm">
     <Info>A Virtual system</Info>
-    <Name>opennms-horizon-vm</Name>
+    <Name>opennms-horizon-minion-vm</Name>
     <OperatingSystemSection ovf:id="94" vmw:osType="ubuntu64Guest">
       <Info>The operating system installed</Info>
       <Description>Ubuntu Linux (64-bit)</Description>

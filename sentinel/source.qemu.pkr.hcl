@@ -1,11 +1,11 @@
-source "qemu" "opennms-horizon-amd64" {
+source "qemu" "opennms-horizon-sentinel-amd64" {
   headless         = true
   memory           = 4096
-  cpus             = 4
+  cpus             = 2
   boot_wait        = "5s"
   disk_compression = true
   disk_image       = true
-  disk_size        = "100G"
+  disk_size        = "50G"
   disk_interface   = "virtio-scsi"
   format           = "qcow2"
   qemuargs         = [["-smbios", "type=1,serial=ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/"]]

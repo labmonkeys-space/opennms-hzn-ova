@@ -1,0 +1,2 @@
+instance-id: opennms/horizon-minion
+local-hostname: onms-hzn-minion

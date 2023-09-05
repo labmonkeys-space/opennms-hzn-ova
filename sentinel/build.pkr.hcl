@@ -12,8 +12,8 @@ packer {
 }
 
 build {
-  source "source.qemu.opennms-horizon-amd64" {
-    name             = "onms-hzn"
+  source "source.qemu.opennms-horizon-sentinel-amd64" {
+    name             = "onms-hzn-sentinel"
     iso_url          = local.iso_url_ubuntu_base_2204
     iso_checksum     = "file:${local.iso_checksum_url_ubuntu_base_2204}"
     output_directory = "image"
@@ -22,16 +22,11 @@ build {
   }
 
   provisioner "ansible-local" {
-    playbook_file = "./ansible/hzn-core-db-deployment.yml"
+    playbook_file = "../ansible/hzn-sentinel-deployment.yml"
     extra_arguments = ["-e", "skip_startup=true" ]
     role_paths = [
-      "ansible/roles/opennms_common",
-      "ansible/roles/opennms_core",
-      "ansible/roles/opennms_icmp",
-      "ansible/roles/opennms_kafka",
-      "ansible/roles/opennms_minion",
-      "ansible/roles/opennms_pgsql",
-      "ansible/roles/opennms_sentinel"
+      "../ansible/roles/opennms_common",
+      "../ansible/roles/opennms_sentinel"
     ]
   }
 
@@ -43,7 +38,7 @@ build {
     execute_command   = "echo 'ubuntu' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'"
     expect_disconnect = true
     // fileset will list files in etc/scripts sorted in an alphanumerical way.
-    scripts = fileset(".", "scripts/*.sh")
+    scripts = fileset(".", "../scripts/*.sh")
   }
 
   post-processors {
@@ -53,7 +48,7 @@ build {
     }
 
     post-processor "shell-local" {
-      inline = ["qemu-img convert image/packer-opennms-horizon-amd64 -O vmdk -o adapter_type=lsilogic,subformat=streamOptimized,compat6 image/onms-hzn-1.vmdk"]
+      inline = ["qemu-img convert image/packer-opennms-horizon-sentinel-amd64 -O vmdk -o adapter_type=lsilogic,subformat=streamOptimized,compat6 image/onms-hzn-sentinel-1.vmdk"]
     }
   }
 }
